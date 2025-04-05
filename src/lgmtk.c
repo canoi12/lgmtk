@@ -1,10 +1,16 @@
 #include "lgmtk.h"
 
 const luaL_Reg _modules[] = {
+#if !defined(LGMTK_NO_GL)
     {"gl", luaopen_gl},
+#endif
+#if !defined(LGMTK_NO_SDL)
     {"sdl2", luaopen_sdl2},
+#endif
     {"json", luaopen_json},
     {"image", luaopen_image},
+    {"font", luaopen_font},
+    {"fs", luaopen_fs},
     {NULL, NULL}
 };
 
