@@ -65,7 +65,7 @@ if (NOT DEFINED EMSCRIPTEN)
     endif ()
 
     add_library(luaFs SHARED src/modules/fs.c)
-    set_target_properties(luaFs PROPERTIES OUTPUT_NAME "font")
+    set_target_properties(luaFs PROPERTIES OUTPUT_NAME "fs")
     if (NOT MSVC)
         target_compile_definitions(luaFs PRIVATE -DLGMTK_EXPORT_DLL)
         set_target_properties(luaFs PROPERTIES PREFIX "")

@@ -1183,7 +1183,7 @@ static MODULE_FUNCTION(sdlEvent, get_type) {
     return 1;
 }
 
-static MODULE_FUNCTION(sdlEvent, window_event) {
+static MODULE_FUNCTION(sdlEvent, window) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->window.event);
     PUSH_INTEGER(self->window.windowID);
@@ -1192,7 +1192,7 @@ static MODULE_FUNCTION(sdlEvent, window_event) {
     return 4;
 }
 
-static MODULE_FUNCTION(sdlEvent, mouse_motion_event) {
+static MODULE_FUNCTION(sdlEvent, mouse_motion) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->motion.which);
     PUSH_INTEGER(self->motion.x);
@@ -1203,7 +1203,7 @@ static MODULE_FUNCTION(sdlEvent, mouse_motion_event) {
     return 6;
 }
 
-static MODULE_FUNCTION(sdlEvent, mouse_button_event) {
+static MODULE_FUNCTION(sdlEvent, mouse_button) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->button.which);
     PUSH_INTEGER(self->button.button);
@@ -1213,7 +1213,7 @@ static MODULE_FUNCTION(sdlEvent, mouse_button_event) {
     return 5;
 }
 
-static MODULE_FUNCTION(sdlEvent, mouse_wheel_event) {
+static MODULE_FUNCTION(sdlEvent, mouse_wheel) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->wheel.which);
     PUSH_INTEGER(self->wheel.x);
@@ -1222,7 +1222,7 @@ static MODULE_FUNCTION(sdlEvent, mouse_wheel_event) {
     return 4;
 }
 
-static MODULE_FUNCTION(sdlEvent, keyboard_event) {
+static MODULE_FUNCTION(sdlEvent, keyboard) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->key.keysym.scancode);
     PUSH_INTEGER(self->key.state == SDL_PRESSED);
@@ -1232,19 +1232,19 @@ static MODULE_FUNCTION(sdlEvent, keyboard_event) {
     return 5;
 }
 
-static MODULE_FUNCTION(sdlEvent, audio_device_event) {
+static MODULE_FUNCTION(sdlEvent, audio_device) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->adevice.which);
     return 1;
 }
 
-static MODULE_FUNCTION(sdlEvent, gamepad_device_event) {
+static MODULE_FUNCTION(sdlEvent, gamepad_device) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->cdevice.which);
     return 1;
 }
 
-static MODULE_FUNCTION(sdlEvent, gamepad_axis_event) {
+static MODULE_FUNCTION(sdlEvent, gamepad_axis) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->caxis.which);
     PUSH_INTEGER(self->caxis.axis);
@@ -1252,7 +1252,7 @@ static MODULE_FUNCTION(sdlEvent, gamepad_axis_event) {
     return 3;
 }
 
-static MODULE_FUNCTION(sdlEvent, gamepad_button_event) {
+static MODULE_FUNCTION(sdlEvent, gamepad_button) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->cbutton.which);
     PUSH_INTEGER(self->cbutton.button);
@@ -1260,13 +1260,13 @@ static MODULE_FUNCTION(sdlEvent, gamepad_button_event) {
     return 3;
 }
 
-static MODULE_FUNCTION(sdlEvent, joy_device_event) {
+static MODULE_FUNCTION(sdlEvent, joy_device) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->jdevice.which);
     return 1;
 }
 
-static MODULE_FUNCTION(sdlEvent, joy_axis_event) {
+static MODULE_FUNCTION(sdlEvent, joy_axis) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->jaxis.which);
     PUSH_INTEGER(self->jaxis.axis);
@@ -1274,7 +1274,7 @@ static MODULE_FUNCTION(sdlEvent, joy_axis_event) {
     return 3;
 }
 
-static MODULE_FUNCTION(sdlEvent, joy_ball_event) {
+static MODULE_FUNCTION(sdlEvent, joy_ball) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->jball.which);
     PUSH_INTEGER(self->jball.ball);
@@ -1283,7 +1283,7 @@ static MODULE_FUNCTION(sdlEvent, joy_ball_event) {
     return 4;
 }
 
-static MODULE_FUNCTION(sdlEvent, joy_button_event) {
+static MODULE_FUNCTION(sdlEvent, joy_button) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->jbutton.which);
     PUSH_INTEGER(self->jbutton.button);
@@ -1291,7 +1291,7 @@ static MODULE_FUNCTION(sdlEvent, joy_button_event) {
     return 3;
 }
 
-static MODULE_FUNCTION(sdlEvent, joy_hat_event) {
+static MODULE_FUNCTION(sdlEvent, joy_hat) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->jhat.which);
     PUSH_INTEGER(self->jhat.hat);
@@ -1299,7 +1299,7 @@ static MODULE_FUNCTION(sdlEvent, joy_hat_event) {
     return 3;
 }
 
-static MODULE_FUNCTION(sdlEvent, dollar_gesture_event) {
+static MODULE_FUNCTION(sdlEvent, dollar_gesture) {
     CHECK_META(sdlEvent);
     PUSH_INTEGER(self->dgesture.touchId);
     PUSH_INTEGER(self->dgesture.gestureId);
@@ -1310,13 +1310,13 @@ static MODULE_FUNCTION(sdlEvent, dollar_gesture_event) {
     return 6;
 }
 
-static MODULE_FUNCTION(sdlEvent, text_event) {
+static MODULE_FUNCTION(sdlEvent, text) {
     CHECK_META(sdlEvent);
     PUSH_STRING(self->text.text);
     return 1;
 }
 
-static MODULE_FUNCTION(sdlEvent, text_edit_event) {
+static MODULE_FUNCTION(sdlEvent, text_edit) {
     CHECK_META(sdlEvent);
     PUSH_STRING(self->edit.text);
     PUSH_INTEGER(self->edit.start);
@@ -1328,23 +1328,23 @@ MODULE_FUNCTION(sdlEvent, meta) {
     BEGIN_REG(reg)
         REG_FIELD(sdlEvent, poll),
         REG_FIELD(sdlEvent, get_type),
-        REG_FIELD(sdlEvent, window_event),
-        REG_FIELD(sdlEvent, mouse_motion_event),
-        REG_FIELD(sdlEvent, mouse_button_event),
-        REG_FIELD(sdlEvent, mouse_wheel_event),
-        REG_FIELD(sdlEvent, keyboard_event),
-        REG_FIELD(sdlEvent, audio_device_event),
-        REG_FIELD(sdlEvent, gamepad_device_event),
-        REG_FIELD(sdlEvent, gamepad_axis_event),
-        REG_FIELD(sdlEvent, gamepad_button_event),
-        REG_FIELD(sdlEvent, joy_device_event),
-        REG_FIELD(sdlEvent, joy_axis_event),
-        REG_FIELD(sdlEvent, joy_ball_event),
-        REG_FIELD(sdlEvent, joy_button_event),
-        REG_FIELD(sdlEvent, joy_hat_event),
-        REG_FIELD(sdlEvent, dollar_gesture_event),
-        REG_FIELD(sdlEvent, text_event),
-        REG_FIELD(sdlEvent, text_edit_event),
+        REG_FIELD(sdlEvent, window),
+        REG_FIELD(sdlEvent, mouse_motion),
+        REG_FIELD(sdlEvent, mouse_button),
+        REG_FIELD(sdlEvent, mouse_wheel),
+        REG_FIELD(sdlEvent, keyboard),
+        REG_FIELD(sdlEvent, audio_device),
+        REG_FIELD(sdlEvent, gamepad_device),
+        REG_FIELD(sdlEvent, gamepad_axis),
+        REG_FIELD(sdlEvent, gamepad_button),
+        REG_FIELD(sdlEvent, joy_device),
+        REG_FIELD(sdlEvent, joy_axis),
+        REG_FIELD(sdlEvent, joy_ball),
+        REG_FIELD(sdlEvent, joy_button),
+        REG_FIELD(sdlEvent, joy_hat),
+        REG_FIELD(sdlEvent, dollar_gesture),
+        REG_FIELD(sdlEvent, text),
+        REG_FIELD(sdlEvent, text_edit),
     END_REG()
     luaL_newmetatable(L, "sdlEvent");
     luaL_setfuncs(L, reg, 0);
@@ -1635,7 +1635,7 @@ static MODULE_FUNCTION(sdlRenderer, clear) {
     return 0;
 }
 
-static MODULE_FUNCTION(sdlRenderer, set_color) {
+static MODULE_FUNCTION(sdlRenderer, set_draw_color) {
     CHECK_META(sdlRenderer);
     Uint8 d[4];
     for (int i = 0; i < 4; i++) d[i] = (Uint8)luaL_checkinteger(L, i+2);
@@ -1983,7 +1983,7 @@ MODULE_FUNCTION(sdlRenderer, meta) {
     BEGIN_REG(reg)
         REG_FIELD(sdlRenderer, destroy),
         REG_FIELD(sdlRenderer, clear),
-        REG_FIELD(sdlRenderer, set_color),
+        REG_FIELD(sdlRenderer, set_draw_color),
         REG_FIELD(sdlRenderer, set_target),
         REG_FIELD(sdlRenderer, set_clip_rect),
         REG_FIELD(sdlRenderer, set_blend_mode),

@@ -5,18 +5,25 @@ local win = sdl2.create_window('window', sdl2.WINDOWPOS_CENTERED, sdl2.WINDOWPOS
 local ren = sdl2.create_renderer(win, -1, sdl2.RENDERER_ACCELERATED)
 local ev = sdl2.create_event()
 
+local x = 64
+local y = 64
 local running = true
 while running do
     while ev:poll() do
         local tp = ev:get_type()
         if tp == sdl2.QUIT then
             running = false
+        elseif tp == sdl2.MOUSEMOTION then
+            local btn, mx, my = ev:mouse_motion()
+            x = mx
+            y = my
         end
     end
-    ren:set_color(0, 0, 0, 255)
+    ren:set_draw_color(0, 0, 0, 255)
     ren:clear()
-    ren:set_color(255, 255, 255, 255)
-    ren:fill_rect(64, 64, 240, 96)
+    ren:set_draw_color(255, 255, 255, 255)
+    ren:fill_rect(x, y, 240, 96)
+    ren:set_draw_color(255, 0, 0, 255)
     ren:fill_circle(64, 64, 16)
     ren:present()
     sdl2.delay(16)
