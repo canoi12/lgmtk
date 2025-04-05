@@ -26,6 +26,8 @@ local lgmtk = require('lgmtk')
 print(lgmtk.sdl2)
 ```
 
+You can use the other modules the same way, in the case you're using the `sdl2.so/sdl2.dll`, use it with:
+
 ```lua
 local sdl2 = require('sdl2')
 
