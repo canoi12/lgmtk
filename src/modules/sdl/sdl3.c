@@ -1,6 +1,6 @@
 #include "selene.h"
 #include "lua_helper.h"
-#if defined(SELENE_USE_SDL3)
+#if defined(LGMTK_USE_SDL3)
 
 BEGIN_ENUM(sdl3_Enums)
     ENUM_FIELD(INIT_AUDIO, SDL_),

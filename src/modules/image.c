@@ -11,7 +11,7 @@ static MODULE_FUNCTION(image, from_file) {
     OPT_INTEGER(req_comp, 4);
     int w, h, comp;
     stbi_uc* pixels = stbi_load(filename, &w, &h, &comp, req_comp);
-    if (pixels == NULL) return luaL_error(L, "[selene] failed to load image %s", filename);
+    if (pixels == NULL) return luaL_error(L, "[image] failed to load image %s", filename);
     lua_newtable(L);
     const size_t size = w*h*req_comp;
     // NEW_UDATA_ADD(Data, data, size);
@@ -54,7 +54,7 @@ static MODULE_FUNCTION(image, from_memory) {
     OPT_INTEGER(req_comp, 4);
     stbi_uc* pixels = stbi_load_from_memory((stbi_uc const*)dt, dt_size, &w, &h, &comp, req_comp);
     if (pixels == NULL)
-        return luaL_error(L, "[selene] failed to load image from memory");
+        return luaL_error(L, "[image] failed to load image from memory");
     lua_newtable(L);
     const size_t size = w*h*req_comp;
     Uint8* data = (Uint8*)lua_newuserdata(L, size);

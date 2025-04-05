@@ -468,7 +468,7 @@ static MODULE_FUNCTION(sdl, create_font) {
     font->height = height;
     *tex = SDL_CreateTexture(*renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_STATIC, width, height);
     if (*tex == NULL)
-        return luaL_error(L, "[selene] failed to create SDL_Texture for Font");
+        return luaL_error(L, "[sdl2] failed to create SDL_Texture for Font");
     SDL_UpdateTexture(*tex, NULL, pixels, width * channels);
     return 2;
 }
@@ -526,7 +526,7 @@ static MODULE_FUNCTION(sdl, create_gl_context) {
 	SDL_GLContext glctx = SDL_GL_CreateContext(*win);
     fprintf(stderr, "GL Context:  %p\n", glctx);
 	if (glctx == NULL)
-		return luaL_error(L, "[selene] failed to create GL Context: %s", SDL_GetError());
+		return luaL_error(L, "[sdl2] failed to create GL Context: %s", SDL_GetError());
 	NEW_UDATA(sdlGLContext, ctx);
 	*ctx = glctx;
 	return 1;
@@ -612,9 +612,9 @@ static MODULE_FUNCTION(sdl, create_renderer) {
     CHECK_UDATA(sdlWindow, win);
     OPT_INTEGER(index, -1);
     OPT_INTEGER(flags, SDL_RENDERER_ACCELERATED);
-    if (*win == NULL) return luaL_error(L, "[selene] invalid SDL window");
+    if (*win == NULL) return luaL_error(L, "[sdl2] invalid SDL window");
     SDL_Renderer* r = SDL_CreateRenderer(*win, index, flags);
-    if (r == NULL) return luaL_error(L, "[selene] failed to create SDL renderer: %s", SDL_GetError());
+    if (r == NULL) return luaL_error(L, "[sdl2] failed to create SDL renderer: %s", SDL_GetError());
     NEW_UDATA(sdlRenderer, render);
     *render = r;
     return 1;
@@ -643,7 +643,7 @@ static MODULE_FUNCTION(sdl, read_file) {
         size_t size;
     // char* str = (char*)SDL_LoadFile(path, &size);
 #if defined(OS_ANDROID)
-    __android_log_print(ANDROID_LOG_ERROR, "selene", "loading %s\n", path);
+    __android_log_print(ANDROID_LOG_ERROR, "sdl2", "loading %s\n", path);
 #endif
     SDL_RWops* rw = SDL_RWFromFile(path, "rb");
     if (!rw)
@@ -691,7 +691,7 @@ static MODULE_FUNCTION(sdl, create_texture) {
     CHECK_INTEGER(width);
     CHECK_INTEGER(height);
     SDL_Texture* tex = SDL_CreateTexture(*render, format, access, width, height);
-    if (!tex) return luaL_error(L, "[selene] failed to create SDL texture: %s", SDL_GetError());
+    if (!tex) return luaL_error(L, "[sdl2] failed to create SDL texture: %s", SDL_GetError());
     if (lua_type(L, arg) == LUA_TLIGHTUSERDATA) {
         void* data = lua_touserdata(L, arg);
         int comp = 3;

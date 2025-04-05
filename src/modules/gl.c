@@ -852,7 +852,7 @@ static MODULE_FUNCTION(gl, gen_textures) {
     CHECK_INTEGER(n);
     for (int i = 0; i < n; i++) {
         int t;
-        glGenTextures(1, &t);
+        glGenTextures(1, (GLuint*)&t);
         PUSH_INTEGER(t);
     }
     return n;
@@ -862,7 +862,7 @@ static MODULE_FUNCTION(gl, delete_textures) {
     INIT_ARG();
     for (int i = 0; i < lua_gettop(L); i++) {
         CHECK_INTEGER(b);
-        glDeleteTextures(1, &b);
+        glDeleteTextures(1, (GLuint*)&b);
     }
     return 0;
 }
