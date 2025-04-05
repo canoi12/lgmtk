@@ -32,9 +32,9 @@ while running do
             running = false
         end
     end
-    ren:set_color(0, 0, 0, 255)
+    ren:set_draw_color(0, 0, 0, 255)
     ren:clear()
-    ren:set_color(255, 255, 255, 255)
+    ren:set_draw_color(255, 255, 255, 255)
     ren:fill_rect(64, 64, 240, 96)
     ren:fill_circle(64, 64, 16)
     ren:present()
