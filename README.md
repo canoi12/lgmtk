@@ -3,8 +3,9 @@
 Set of C libs to use in game development in Lua.
 
 
-I extracted these libs from the global modules from an other project, [selene](https://github.com/canoi12/selene).
-I'll keep it in this separated repository.
+I extracted these libraries from an other project of mine, the [selene](https://github.com/canoi12/selene) framework.
+In selene, these libraries work as global modules, but I think is a better idea to keep it in this separated repository.
+
 
 Present modules:
 
@@ -15,6 +16,15 @@ Present modules:
 - font (stb_truetype)
 - fs
 - json
+
+
+All of them are compiled as shared/dynamic libraries (.so/.dll).
+A `lgmtk.so` is compiled too, it contains all the other modules and store it in a table.
+
+```lua
+local lgmtk = require('lgmtk')
+print(lgmtk.sdl2)
+```
 
 ```lua
 local sdl2 = require('sdl2')

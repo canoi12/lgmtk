@@ -2020,7 +2020,7 @@ static MODULE_FUNCTION(sdlRWops, read) {
     return 1;
 }
 
-static MODULE_FUNCTION(sdlRWops, writen) {
+static MODULE_FUNCTION(sdlRWops, write) {
     CHECK_META(sdlRWops);
     CHECK_LUDATA(void, data);
     CHECK_INTEGER(size);
@@ -2029,6 +2029,8 @@ static MODULE_FUNCTION(sdlRWops, writen) {
     PUSH_INTEGER(written);
     return 1;
 }
+
+const char* _whence_str[] = {"set", "cur", "end", NULL};
 
 static MODULE_FUNCTION(sdlRWops, seek) {
     CHECK_META(sdlRWops);
@@ -2063,7 +2065,7 @@ static MODULE_FUNCTION(sdlRWops, close) {
 MODULE_FUNCTION(sdlRWops, meta) {
     BEGIN_REG(reg)
         REG_FIELD(sdlRWops, read),
-        REG_FIELD(sdlRWops, writen),
+        REG_FIELD(sdlRWops, write),
         REG_FIELD(sdlRWops, seek),
         REG_FIELD(sdlRWops, size),
         REG_FIELD(sdlRWops, tell),
@@ -2163,6 +2165,7 @@ static MODULE_FUNCTION(sdlWindow, get_size) {
 }
 
 static MODULE_FUNCTION(sdlWindow, set_size) {
+    return 0;
 }
 
 static MODULE_FUNCTION(sdlWindow, get_position) {

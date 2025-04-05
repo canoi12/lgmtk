@@ -17,7 +17,7 @@ const luaL_Reg _modules[] = {
 int luaopen_lgmtk(lua_State* L) {
     lua_newtable(L);
     for (int i = 0; _modules[i].name != NULL; i++) {
-        luaL_requiref(L, _modules[i].name, _modules[i].func, 1);
+        _modules[i].func(L);
         lua_setfield(L, -2, _modules[i].name);
     }
     return 1;
