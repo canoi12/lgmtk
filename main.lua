@@ -1,4 +1,5 @@
-local sdl2 = require('sdl2')
+local lgmtk = require('lgmtk')
+local sdl2 = lgmtk.sdl2
 
 sdl2.init(sdl2.INIT_VIDEO)
 local win = sdl2.create_window('window', sdl2.WINDOWPOS_CENTERED, sdl2.WINDOWPOS_CENTERED, 640, 380, sdl2.WINDOW_SHOWN)

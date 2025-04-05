@@ -1,4 +1,5 @@
 #include "lgmtk.h"
+#include "common.h"
 
 const luaL_Reg _modules[] = {
 #if !defined(LGMTK_NO_GL)

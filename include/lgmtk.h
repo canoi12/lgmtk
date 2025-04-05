@@ -21,6 +21,10 @@
 #define OS_WIN 1
 #elif defined(__linux__)
 #define OS_LINUX 1
+#elif defined(__android__)
+#define OS_ANDROID  1
+#elif defined(__EMSCRIPTEN__)
+#define OS_EMSCRIPTEN 1
 #endif
 
 #ifndef LGMTK_API

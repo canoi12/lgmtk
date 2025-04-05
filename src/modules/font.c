@@ -2,6 +2,8 @@
 #include "lgmtk.h"
 #include "lua_helper.h"
 
+#include "common.h"
+
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "stb_truetype.h"
 
