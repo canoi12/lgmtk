@@ -6,6 +6,16 @@ Set of C libs to use in game development in Lua.
 I extracted these libs from the global modules from an other project, [selene](https://github.com/canoi12/selene).
 I'll keep it in this separated repository.
 
+Present modules:
+
+- sdl2 (SDL2)
+- sdl3 (SDL3) *WIP*
+- gl (OpenGL/OpenGLES)
+- image (stb_image)
+- font (stb_truetype)
+- fs
+- json
+
 ```lua
 local sdl2 = require('sdl2')
 
