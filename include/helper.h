@@ -80,7 +80,7 @@ int utf8_codepoint(uint8_t* p, int* codepoint) {
         //n = n + 1;
     }
     }
-    if (*codepoint > SELENE_MAX_UNICODE) *codepoint = -1;
+    if (*codepoint > LGMTK_MAX_UNICODE) *codepoint = -1;
     return n;
 }
 

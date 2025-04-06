@@ -1,5 +1,6 @@
 #include "lgmtk.h"
 #include "lua_helper.h"
+#include "common.h"
 BEGIN_ENUM(sdl_Enums)
     ENUM_FIELD(INIT_EVERYTHING, SDL_),
     ENUM_FIELD(INIT_SENSOR, SDL_),
@@ -522,9 +523,7 @@ static MODULE_FUNCTION(sdl, gamepad_get_button_from_string) {
 static MODULE_FUNCTION(sdl, create_gl_context) {
     INIT_ARG();
 	CHECK_UDATA(sdlWindow, win);
-    fprintf(stderr, "Window: %p %p\n", win, *win);
 	SDL_GLContext glctx = SDL_GL_CreateContext(*win);
-    fprintf(stderr, "GL Context:  %p\n", glctx);
 	if (glctx == NULL)
 		return luaL_error(L, "[sdl2] failed to create GL Context: %s", SDL_GetError());
 	NEW_UDATA(sdlGLContext, ctx);
@@ -1623,6 +1622,12 @@ MODULE_FUNCTION(sdlJoystick, meta) {
 
 #include "helper.h"
 
+static MODULE_FUNCTION(sdlRenderer, get_handle) {
+    CHECK_META(sdlRenderer);
+    lua_pushlightuserdata(L, *self);
+    return 1;
+}
+
 static MODULE_FUNCTION(sdlRenderer, destroy) {
     CHECK_META(sdlRenderer);
     SDL_DestroyRenderer(*self);
@@ -1981,6 +1986,7 @@ static MODULE_FUNCTION(sdlRenderer, present) {
 
 MODULE_FUNCTION(sdlRenderer, meta) {
     BEGIN_REG(reg)
+        REG_FIELD(sdlRenderer, get_handle),
         REG_FIELD(sdlRenderer, destroy),
         REG_FIELD(sdlRenderer, clear),
         REG_FIELD(sdlRenderer, set_draw_color),
@@ -2147,6 +2153,12 @@ MODULE_FUNCTION(sdlTexture, meta) {
 
 /* sdlWindow */
 
+static MODULE_FUNCTION(sdlWindow, get_handle) {
+    CHECK_META(sdlWindow);
+    lua_pushlightuserdata(L, *self);
+    return 1;
+}
+
 static MODULE_FUNCTION(sdlWindow, destroy) {
     CHECK_META(sdlWindow);
     fprintf(stderr, "sdlWindow: destroy\n");
@@ -2165,6 +2177,10 @@ static MODULE_FUNCTION(sdlWindow, get_size) {
 }
 
 static MODULE_FUNCTION(sdlWindow, set_size) {
+    CHECK_META(sdlWindow);
+    CHECK_INTEGER(width);
+    CHECK_INTEGER(height);
+    SDL_SetWindowSize(*self, width, height);
     return 0;
 }
 
@@ -2188,6 +2204,7 @@ static MODULE_FUNCTION(sdlWindow, gl_swap) {
 
 MODULE_FUNCTION(sdlWindow, meta) {
     BEGIN_REG(reg)
+        REG_FIELD(sdlWindow, get_handle),
         REG_FIELD(sdlWindow, destroy),
         REG_FIELD(sdlWindow, get_size),
         REG_FIELD(sdlWindow, set_size),

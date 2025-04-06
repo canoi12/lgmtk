@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10.0 FATAL_ERROR)
-project(lgmtk VERSION 0.1.0 LANGUAGES C)
+project(lgmtk VERSION 0.1.0 LANGUAGES C CXX)
 
 set(LUA_VERSION "5.4" CACHE STRING "Set the Lua version to use")
 set(LUA_LIB "lua${LUA_VERSION}")
@@ -26,6 +26,12 @@ endif ()
 include_directories(${SDL2_INCLUDE_DIRS})
 set(LIBRARIES ${LUA_LIB} ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES})
 
+include_directories(third/cimgui/ third/cimgui/imgui/ third/cimgui/imgui/backends third/imgui_lua_bindings/)
+file(GLOB IMGUI_SOURCE third/cimgui/imgui/*.cpp
+        third/cimgui/imgui/backends/imgui_impl_sdl2.cpp
+        third/cimgui/imgui/backends/imgui_impl_sdlrenderer2.cpp)
+file(GLOB CIMGUI_SOURCE third/cimgui/*.cpp)
+
 if (NOT DEFINED EMSCRIPTEN)
     add_library(luaSDL2 SHARED src/modules/sdl.c)
     target_link_libraries(luaSDL2 ${SDL2_LIBRARIES})
@@ -42,6 +48,15 @@ if (NOT DEFINED EMSCRIPTEN)
         set_target_properties(luaGL PROPERTIES PREFIX "")
         target_compile_definitions(luaGL PRIVATE -DLGMTK_EXPORT_DLL)
     endif ()
+
+    add_library(luaImgui SHARED src/modules/imgui.c ${CIMGUI_SOURCE} ${IMGUI_SOURCE})
+    target_link_libraries(luaImgui ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES})
+    set_target_properties(luaImgui PROPERTIES OUTPUT_NAME "imgui")
+    if (NOT MSVC)
+        set_target_properties(luaImgui PROPERTIES PREFIX "")
+        target_compile_definitions(luaImgui PRIVATE -DLGMTK_EXPORT_DLL -DCIMGUI_USE_SDL2)
+    endif ()
+    target_compile_definitions(luaImgui PRIVATE IMGUI_IMPL_API=extern\t\"C\"\t)
 
     add_library(luaImage SHARED src/modules/image.c)
     set_target_properties(luaImage PROPERTIES OUTPUT_NAME "image")
@@ -71,7 +86,7 @@ if (NOT DEFINED EMSCRIPTEN)
         set_target_properties(luaFs PROPERTIES PREFIX "")
     endif ()
 
-    add_library(${PROJECT_NAME} SHARED ${LGMTK_SOURCE})
+    add_library(${PROJECT_NAME} SHARED ${LGMTK_SOURCE} ${CIMGUI_SOURCE} ${IMGUI_SOURCE})
     target_link_libraries(${PROJECT_NAME} ${LIBRARIES})
     if (MSVC)
         target_compile_definitions(${PROJECT_NAME} PRIVATE -DLGMTK_EXPORT_DLL)
@@ -79,6 +94,7 @@ if (NOT DEFINED EMSCRIPTEN)
         set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
     endif ()
     set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME})
+    target_compile_definitions(${PROJECT_NAME} PRIVATE IMGUI_IMPL_API=extern\t\"C\"\t)
 
     add_executable(lua third/lua/lua${LUA_VERSION}/source/src/lua.c)
     target_link_libraries(lua ${LUA_LIB})

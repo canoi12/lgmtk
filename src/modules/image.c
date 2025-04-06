@@ -15,7 +15,7 @@ static MODULE_FUNCTION(image, from_file) {
     lua_newtable(L);
     const size_t size = w*h*req_comp;
     // NEW_UDATA_ADD(Data, data, size);
-    Uint8* data = (Uint8*)lua_newuserdata(L, size);
+    stbi_uc* data = (stbi_uc*)lua_newuserdata(L, size);
     luaL_setmetatable(L, "uint8_t[]");
     lua_setfield(L, -2, "data");
     // *data = size;
@@ -57,7 +57,7 @@ static MODULE_FUNCTION(image, from_memory) {
         return luaL_error(L, "[image] failed to load image from memory");
     lua_newtable(L);
     const size_t size = w*h*req_comp;
-    Uint8* data = (Uint8*)lua_newuserdata(L, size);
+    stbi_uc* data = (stbi_uc*)lua_newuserdata(L, size);
     luaL_setmetatable(L, "uint8_t[]");
     lua_setfield(L, -2, "data");
     memcpy(data, pixels, size);

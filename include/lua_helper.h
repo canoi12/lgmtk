@@ -178,10 +178,18 @@ const char* name = luaL_checklstring(LUA_STATE_NAME, arg++, len)
 #define PUSH_STRING(name)\
 lua_pushstring(LUA_STATE_NAME, name)
 
+#define OPT_STRING(name, def)\
+const char* name = luaL_optstring(LUA_STATE_NAME, arg++, def)
+
 // Boolean
 
 #define GET_BOOLEAN(name)\
 int name = (int)lua_toboolean(L, arg++)
+
+#define OPT_BOOLEAN(name, def)\
+int name = def;\
+if (lua_type(LUA_STATE_NAME, arg) == LUA_TBOOLEAN)\
+    name = lua_toboolean(LUA_STATE_NAME, arg++)
 
 #define CHECK_BOOLEAN(name)\
 int name;\

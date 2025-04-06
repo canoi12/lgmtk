@@ -1,6 +1,7 @@
 
 #include "lgmtk.h"
 #include "lua_helper.h"
+#include "common.h"
 
 BEGIN_ENUM(gl_Enums)
     ENUM_FIELD(POINTS, GL_),

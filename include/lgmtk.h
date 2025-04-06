@@ -8,15 +8,6 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-#if !defined(LGMTK_NO_GL)
-#include "glad/glad.h"
-#endif
-
-#if !defined(LGMTK_NO_SDL)
-#include <SDL.h>
-#include <SDL_opengl.h>
-#endif
-
 #if defined(_WIN32)
 #define OS_WIN 1
 #elif defined(__linux__)

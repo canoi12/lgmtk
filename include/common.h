@@ -15,7 +15,7 @@
 #include <lualib.h>
 #include <lauxlib.h>
 
-#define SELENE_MAX_UNICODE 0x10FFFF
+#define LGMTK_MAX_UNICODE 0x10FFFF
 
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
@@ -30,13 +30,13 @@
 #define RAD2DEG(rad) ((rad)*(180.0/M_PI))
 #define STR(x) #x
 
-#ifndef SELENE_NO_GL
+#ifndef LGMTK_NO_GL
 #if defined(OS_WIN) || defined(OS_LINUX) || defined(OS_APPLE)
 #include <glad/glad.h>
 #endif
 #endif
 
-#ifndef SELENE_NO_SDL
+#if !defined(LGMTK_NO_SDL)
 #if defined(OS_EMSCRIPTEN)
     #include <SDL2/SDL.h>
     #include <SDL2/SDL_opengles2.h>
@@ -61,5 +61,12 @@
     #endif
 #endif
 #endif
+
+#ifndef LGMTK_NO_IMGUI
+
+//#include "imgui_impl_sdl2.h"
+//#include "imgui_impl_sdlrenderer2.h"
+#endif
+
 
 #endif /* COMMON_H_ */
