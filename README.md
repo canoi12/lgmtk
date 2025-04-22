@@ -1,6 +1,6 @@
 # Lua Game Making Toolkit
 
-Set of C libs to use in game development in Lua.
+Set of C libs to use in Lua game development.
 
 
 I extracted these libraries from an other project of mine, the [selene](https://github.com/canoi12/selene) framework.
